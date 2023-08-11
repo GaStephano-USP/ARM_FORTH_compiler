@@ -1,0 +1,40 @@
+@ /* funcoes iniciais q tenho q fazer: Add Sub Mul Swap Dup Drop Rot */
+
+add:
+    pop {ro, r1}
+    add r0, r1, r1
+    push {r0}
+    mov pc, lr  
+
+sub:
+    pop {r0, r1}
+    sub r0, r0, r1
+    push {r0}
+    mov pc, lr 
+
+dup:
+    pop {r0}
+    push {r0}
+    push {r0}
+
+neg:
+    pop {r0}
+    mov r1, #0
+    sub, r0, r1, r0
+    push {r0}
+
+mul:
+    pop {r0, r1}
+    mul r0, r0, r1
+    push {r0}
+
+rot:
+    pop {r0, r1, r2}
+    push {r1, r2, r0}
+
+swap:
+    pop {r0, r1}
+    push {r1, r0}
+
+drop:
+    @ /* Tem q descartar primeiro elemento da pilha nn sei como k */
