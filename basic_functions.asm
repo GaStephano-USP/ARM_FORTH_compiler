@@ -31,13 +31,13 @@ mul:
 rot:
     pop {r0, r1, r2}
     push {r1}
-    push {r2}
     push {r0}
+    push {r2}
 
 swap:
     pop {r0, r1}
-    push {r1}
     push {r0}
+    push {r1}
 
 drop:
     add sp, #4
