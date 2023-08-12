@@ -29,6 +29,11 @@ mul:
     mul r0, r0, r1
     push {r0}
 
+div:
+    pop {r0, r1}
+    udiv r0, r1, r0
+    push {r0}
+
 rot:
     pop {r0, r1, r2}
     push {r1}
