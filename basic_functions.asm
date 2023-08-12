@@ -30,11 +30,14 @@ mul:
 
 rot:
     pop {r0, r1, r2}
-    push {r1, r2, r0}
+    push {r1}
+    push {r2}
+    push {r0}
 
 swap:
     pop {r0, r1}
-    push {r1, r0}
+    push {r1}
+    push {r0}
 
 drop:
     @ /* Tem q descartar primeiro elemento da pilha nn sei como k */
