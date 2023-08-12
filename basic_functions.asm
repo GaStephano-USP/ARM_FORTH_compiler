@@ -40,4 +40,5 @@ swap:
     push {r0}
 
 drop:
-    @ /* Tem q descartar primeiro elemento da pilha nn sei como k */
+    add sp, #4
+    @ /* Movo stack pointer pra baixo */
