@@ -7,8 +7,9 @@ add:
     mov pc, lr  
 
 sub:
+    @ /* Tem que lembrar que forth é polonesa reversa, logo sub: segundo da fila - primeiro da fila */
     pop {r0, r1}
-    sub r0, r0, r1
+    sub r0, r1, r0 
     push {r0}
     mov pc, lr 
 
