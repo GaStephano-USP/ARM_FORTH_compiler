@@ -7,8 +7,9 @@ add:
     mov pc, lr  
 
 sub:
+    @ /* Tem que lembrar que forth é polonesa reversa, logo sub: segundo da fila - primeiro da fila */
     pop {r0, r1}
-    sub r0, r0, r1
+    sub r0, r1, r0 
     push {r0}
     mov pc, lr 
 
@@ -28,13 +29,22 @@ mul:
     mul r0, r0, r1
     push {r0}
 
+div:
+    pop {r0, r1}
+    udiv r0, r1, r0
+    push {r0}
+
 rot:
     pop {r0, r1, r2}
-    push {r1, r2, r0}
+    push {r1}
+    push {r0}
+    push {r2}
 
 swap:
     pop {r0, r1}
-    push {r1, r0}
+    push {r0}
+    push {r1}
 
 drop:
-    @ /* Tem q descartar primeiro elemento da pilha nn sei como k */
+    add sp, #4
+    @ /* Movo stack pointer pra baixo */
