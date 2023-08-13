@@ -151,32 +151,64 @@ drop:
     end:
         mov pc, lr  
 
-@ /* Opoerações Lógicas or, and, negate */
+@ /* Opoeracoes Logicas or, and, negate */
 
 or:
+    @ /* Checa se r0 ou r1 sao diferentes de 0, se for retorna 1, se nn retorna 0 */
     pop {r0, r1}
-    orr r0, r0, r1
-    push {r0}
-    mov pc, lr  
-
-and: 
-    pop {ro, r1}
-    and r0, r0, r1
-    push {r0}
-    mov pc, lr  
-
-not:
-    pop {r0}
     cmp r0, #0
-    bgt diff
-    blt diff
-    @/* se nn deu branch, r0 e 0 msm ent, nn tem oq inverter */
-    b end
-    diff:     @/* r0 e diferente de 0, so fazer 0 - valor pra ter o valor negativo */
-        mov r1, #0
-        sub r0, r1, r0
+    beq passo1
+    b escreve1
+    passo1:
+        cmp r1 #0
+        beq zero
+        b escreve1
+    escreve1:
+        mov r2, #1
+        push {r2}
+        b end
+    zero:
+        mov r2, #0
+        push {r2}
         b end
     end:
-        push {r0}
-        mov pc, lr 
+        mov pc, lr
+
+
+and:
+    @ /* Checa se r0 e r1 sao maiores que 0, se for retorna 1, se nn retorna 0 */
+    pop {r0, r1}
+    cmp r0, #0
+    beq zero
+    cmp r1, #0
+    beq zero
+    b escreve1
+    escreve 1:
+        mov r2, #1
+        push {r2}
+        b end
+    zero:
+        mov r2, #0
+        push {r2}
+        b end
+    end:
+        mov pc, lr  
+
+not:
+    @ /* Escreve 0 na pilha se tinha algo diferente de 0, escreve 1 na pilha se tinha 0  */
+    pop {r0}
+    cmp r0, #0
+    beq escreve1
+    b escreve0
+    b menor
+    escreve0:
+        mov r2, #0
+        push {r2}
+        b end
+    escreve1:
+        mov r2, #1
+        push {r2}
+        b end
+    end:
+        mov pc, lr
 
