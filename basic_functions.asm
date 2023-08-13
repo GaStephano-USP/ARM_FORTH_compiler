@@ -31,7 +31,7 @@ mul:
 
 div:
     pop {r0, r1}
-    udiv r0, r1, r0
+    sdiv r0, r1, r0
     push {r0}
 
 rot:
