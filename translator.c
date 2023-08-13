@@ -1,45 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #define LINEMAX 100
-int main(int args, char *argv[]) {
-    char fonte[LINEMAX] = argv[0];
-    char resultado[LINEMAX] = argv[1];
-    FILE* entrada;
-    FILE* saida;
-    entrada = fopen(fonte, "r");
-    saida = fopen(resultado, "w");
-    if (entrada != NULL) {
-        char symbol[LINEMAX];
-        int num = 0;
-        while (symbol != EOF){
-            fgets(symbol, LINEMAX, entrada);
-            if (isNumber(symbol) == 1)
-                fprintf(saida, "\tmov r0, #%s\n\t push{r0}\n", symbol); // push number in stack
-            else if (symbol == "IF");
-            //    fprintf(saida, "\tbz L%d\n", num);
-            else if (symbol == "ELSE");
-            //    fprintf(saida, "L%d:\n\t beq L%d\n", num, ++num);
-            else if (symbol == "THEN")
-                fprintf(saida, "L%d:\n", num++);
-            else if (symbol == ";")
-                fprintf(saida, "mov pc, lr\n"); // function return
-            else if (symbol[0] == ":")
-            {
-                memmove(symbol, symbol+2, strlen(symbol));
-                fprintf("%s:\n", symbol);
-            }
-            else
-                fprintf(saida, "bl %s\n", symbol); // branch to a label
-        };
-    }
-    else {
-        printf("arquivo não encontrado\n");
-        return -1;
-    }
-    fclose(entrada);
-    fclose(saida);
-    return 0;
-}
 
 //checa se a string só contém números
 int isNumber(char *text)
@@ -55,3 +16,46 @@ int isNumber(char *text)
     }
     return 1;
 }
+
+int main(int args, char *argv[]) {
+    FILE* entrada;
+    FILE* saida;
+    entrada = fopen(argv[0], "r");
+    saida = fopen(argv[1], "w");
+    if (entrada == NULL) {
+        printf("arquivo não encontrado\n");
+        return -1;
+    }
+    char symbol[LINEMAX];
+    int num = 0;
+    printf( "%s", symbol);
+    while (fgets(symbol, LINEMAX, entrada)){
+        //remove o \n
+        size_t len = strlen(symbol);
+        if (len > 0 && symbol[len - 1] == '\n') {
+            symbol[len - 1] = '\0';
+        }
+        if (isNumber(symbol))
+            fprintf(saida, "\tmov r0, #%s\n\tpush{r0}\n", symbol); // push number in stack
+        else if (symbol == "IF")
+                fprintf(saida, "\tpop {r0}\n\tbz L%d", num);
+        else if (symbol == "ELSE");
+            //    fprintf(saida, "L%d:\n\t beq L%d\n", num, ++num);
+        else if (symbol == "THEN")
+            fprintf(saida, "L%d:\n", num++);
+        else if (symbol == ";")
+            fprintf(saida, "mov pc, lr"); // function return
+        else if (symbol == "a")
+        {
+            memmove(symbol, symbol+2, strlen(symbol));
+            fprintf(saida, "%s:", symbol);
+        }
+        else
+            fprintf(saida, "\tbl %s\n", symbol); // branch to a label
+        printf("%s", symbol);
+    };
+    fclose(entrada);
+    fclose(saida);
+    return 0;
+}
+
