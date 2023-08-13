@@ -127,7 +127,7 @@ for line in source :
             elif args[i] == '(' :
                 output.write('(\n')
                 statestack.append('c')
-            elif args[i].upper == 'LOOP' :
+            elif args[i].upper() == 'LOOP' :
                 output.write('LOOP\n')
                 statestack.pop()
             elif args[i].upper() == 'IF' :
