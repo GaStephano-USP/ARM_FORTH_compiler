@@ -43,9 +43,6 @@ for line in source :
     args = line.split()
     i = 0
     while i < len(args) :
-        print('Lendo: \'' + args[i].upper() + '\'')
-        print('State stack: ' + str(statestack))
-        print('\n---\n')
         
         # Estado: comentário multilinha
         if statestack[-1] == 'c' and args[i] == ')' :
