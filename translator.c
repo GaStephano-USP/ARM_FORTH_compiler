@@ -28,7 +28,9 @@ int main() {
     fclose(saida);
     return 0;
 }
-char isNumber(char *text)
+
+//checa se a string só contém números
+int isNumber(char *text)
 {
     int j;
     j = strlen(text);
