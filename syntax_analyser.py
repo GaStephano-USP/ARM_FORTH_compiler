@@ -104,11 +104,14 @@ for line in source :
         # Estado: loop
         elif statestack[-1] == 'l' :
             if args[i] == '\\' :
+                output.write('\\')
                 statestack.append('lc')
             elif args[i] == '(' :
+                output.write('(')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
                 if statestack[-2] != 'l' :
+                    output.write('IF')
                     statestack.append('i')
                 else:
                     print(f"ERRO: Tentativa de aninhamento (linha {lineNum})")
@@ -136,11 +139,14 @@ for line in source :
         # Estado: condicional
         elif statestack[-1] == 'l' :
             if args[i] == '\\' :
+                output.write('\\')
                 statestack.append('lc')
             elif args[i] == '(' :
+                output.write('(')
                 statestack.append('c')
             elif args[i].upper() == 'DO' :
                 if statestack[-2] != 'i' :
+                    output.write('DO')
                     statestack.append('l')
                 else:
                     print(f"ERRO: Tentativa de aninhamento (linha {lineNum})")
