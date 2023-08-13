@@ -48,3 +48,18 @@ swap:
 drop:
     add sp, #4
     @ /* Movo stack pointer pra baixo */
+
+over:
+    pop {r0, r1}
+    push {r1}
+    push {r0}
+    push {r1}
+
+pick:
+    pop {r0}
+    mov r1, #4
+    mul r0, r0, r1
+    add sp, sp, r0
+    ldr r1, [sp]
+    sub sp, sp, r0
+    push {r1}
