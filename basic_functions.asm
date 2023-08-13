@@ -169,7 +169,7 @@ not:
     pop {r0}
     cmp r0, #0
     bgt diff
-    gle diff
+    blt diff
     @/* se nn deu branch, r0 e 0 msm ent, nn tem oq inverter */
     b end
     diff:     @/* r0 e diferente de 0, so fazer 0 - valor pra ter o valor negativo */
