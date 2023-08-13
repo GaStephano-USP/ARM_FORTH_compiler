@@ -1,4 +1,4 @@
-symbols = ['+', '-', '*', '/', '.', '=', '>', '<', '<>', '0=', '0>', '0<',
+symbols = ['+', '-', '*', '/', '.', '=', '>', '<', '<>', '0=', '0>', '0<', 'OR', 'AND', 'NEGATE',
            'DROP', 'SWAP', 'ROT', 'DUP', 'OVER', 'TUCK', 'PICK', 'ROLL',
            'IF', 'ELSE', 'THEN', 'DO', 'LOOP']
 extensions = ['fth', 'fs', '4th', 'frt', 'forth']
