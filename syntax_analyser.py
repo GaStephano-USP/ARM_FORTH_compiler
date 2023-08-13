@@ -203,4 +203,8 @@ for line in source :
     if statestack[-1] == 'lc' :
         statestack.pop()
 
+if statestack[-1] == 'l':
+    print('ERRO: Há um \'LOOP\' faltando.')
+elif statestack[-1] == 'i':
+    print('ERRO: Há um \'THEN\' faltando.')
 close()
