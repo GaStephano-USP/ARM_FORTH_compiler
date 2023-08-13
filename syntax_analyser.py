@@ -29,6 +29,14 @@ def close():
     output.close()
     return
 
+def isSigned(string) :
+    if len(string) == 0 :
+        return False
+    if string[0] == '-' :
+        return string[1:].isnumeric()
+    return string.isnumeric()
+    
+
 lineNum = 0
 for line in source :
     lineNum += 1
@@ -56,18 +64,22 @@ for line in source :
                     output.write(": " + args[i+1].upper())
                     i += 1
             elif args[i] == '\\' :
+                output.write('\\')
                 statestack.append('lc')
             elif args[i] == '(' :
+                output.write('(')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
+                output.write('IF')
                 statestack.append('i')
             elif args[i].upper() == 'DO' :
+                output.write('DO')
                 statestack.append('l')
             elif args[i].upper() in [';', ')', 'THEN', 'ELSE', 'LOOP'] :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or (args[i].isnumeric()) :
+            elif (args[i].upper() in symbols) or isSigned(args[i]) :
                 output.write(args[i].upper())
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
@@ -77,14 +89,19 @@ for line in source :
         # Estado: word
         elif statestack[-1] == 'w' :
             if args[i] == ';' :
+                output.write(';')
                 statestack.pop()
             elif args[i] == '\\' :
+                output.write('\\')
                 statestack.append('lc')
             elif args[i] == '(' :
+                output.write('(')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
+                output.write('IF')
                 statestack.append('i')
             elif args[i].upper() == 'DO' :
+                output.write('DO')
                 statestack.append('l')
             elif args[i].upper() in [')', 'THEN', 'ELSE', 'LOOP'] :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
@@ -94,7 +111,7 @@ for line in source :
                 print(f"ERRO: Nome não pode ser definido dentro da definição de outro (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or (args[i].isnumeric()) :
+            elif (args[i].upper() in symbols) or isSigned(args[i]) :
                 output.write(args[i].upper())
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
@@ -129,7 +146,7 @@ for line in source :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or (args[i].isnumeric()) :
+            elif (args[i].upper() in symbols) or isSigned(args[i]) :
                 output.write(args[i].upper())
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
@@ -164,7 +181,7 @@ for line in source :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or (args[i].isnumeric()) :
+            elif (args[i].upper() in symbols) or isSigned(args[i]) :
                 output.write(args[i].upper())
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
