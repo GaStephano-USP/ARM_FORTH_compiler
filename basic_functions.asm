@@ -167,7 +167,7 @@ and:
 
 not:
     pop {r0}
-    cmp {r0}
+    cmp r0, #0
     bgt diff
     gle diff
     @/* se nn deu branch, r0 e 0 msm ent, nn tem oq inverter */
