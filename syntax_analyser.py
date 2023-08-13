@@ -41,7 +41,11 @@ lineNum = 0
 for line in source :
     lineNum += 1
     args = line.split()
-    for i in range(len(args)) :
+    i = 0
+    while i < len(args) :
+        print('Lendo: \'' + args[i].upper() + '\'')
+        print('State stack: ' + str(statestack))
+        print('\n---\n')
         
         # Estado: comentário multilinha
         if statestack[-1] == 'c' and args[i] == ')' :
@@ -50,7 +54,7 @@ for line in source :
         # Estado: normal 
         elif statestack[-1] == 'n' :
             if args[i] == ':' :
-                statestack.append['w']
+                statestack.append('w')
                 if args[i+1].isnumeric() :
                     print(f"ERRO: Nome inválido (linha {lineNum})")
                     close()
@@ -61,26 +65,26 @@ for line in source :
                     exit(-1)
                 else :
                     symbols.append(args[i+1].upper())
-                    output.write(": " + args[i+1].upper())
+                    output.write(": " + args[i+1].upper() + '\n')
                     i += 1
             elif args[i] == '\\' :
-                output.write('\\')
+                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(')
+                output.write('(\n')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
-                output.write('IF')
+                output.write('IF\n')
                 statestack.append('i')
             elif args[i].upper() == 'DO' :
-                output.write('DO')
+                output.write('DO\n')
                 statestack.append('l')
             elif args[i].upper() in [';', ')', 'THEN', 'ELSE', 'LOOP'] :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
             elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper())
+                output.write(args[i].upper() + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -89,19 +93,19 @@ for line in source :
         # Estado: word
         elif statestack[-1] == 'w' :
             if args[i] == ';' :
-                output.write(';')
+                output.write(';\n')
                 statestack.pop()
             elif args[i] == '\\' :
-                output.write('\\')
+                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(')
+                output.write('(\n')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
-                output.write('IF')
+                output.write('IF\n')
                 statestack.append('i')
             elif args[i].upper() == 'DO' :
-                output.write('DO')
+                output.write('DO\n')
                 statestack.append('l')
             elif args[i].upper() in [')', 'THEN', 'ELSE', 'LOOP'] :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
@@ -112,7 +116,7 @@ for line in source :
                 close()
                 exit(-1)
             elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper())
+                output.write(args[i].upper() + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -121,14 +125,17 @@ for line in source :
         # Estado: loop
         elif statestack[-1] == 'l' :
             if args[i] == '\\' :
-                output.write('\\')
+                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(')
+                output.write('(\n')
                 statestack.append('c')
+            elif args[i].upper == 'LOOP' :
+                output.write('LOOP\n')
+                statestack.pop()
             elif args[i].upper() == 'IF' :
                 if statestack[-2] != 'l' :
-                    output.write('IF')
+                    output.write('IF\n')
                     statestack.append('i')
                 else:
                     print(f"ERRO: Tentativa de aninhamento (linha {lineNum})")
@@ -142,28 +149,31 @@ for line in source :
                 print(f"ERRO: Nome não pode ser definido dentro da definição de outro (linha {lineNum})")
                 close()
                 exit(-1)
-            elif args[i].upper() in [';', ')', 'THEN', 'ELSE', 'LOOP'] :
+            elif args[i].upper() in [';', ')', 'THEN', 'ELSE'] :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
             elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper())
+                output.write(args[i].upper() + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
                 exit(-1)
         
         # Estado: condicional
-        elif statestack[-1] == 'l' :
+        elif statestack[-1] == 'i' :
             if args[i] == '\\' :
-                output.write('\\')
+                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(')
+                output.write('(\n')
                 statestack.append('c')
+            elif args[i].upper() == 'THEN' :
+                output.write('THEN\n')
+                statestack.pop()
             elif args[i].upper() == 'DO' :
                 if statestack[-2] != 'i' :
-                    output.write('DO')
+                    output.write('DO\n')
                     statestack.append('l')
                 else:
                     print(f"ERRO: Tentativa de aninhamento (linha {lineNum})")
@@ -177,16 +187,17 @@ for line in source :
                 print(f"ERRO: Nome não pode ser definido dentro da definição de outro (linha {lineNum})")
                 close()
                 exit(-1)
-            elif args[i].upper() in [';', ')', 'THEN', 'ELSE', 'LOOP'] :
+            elif args[i].upper() in [';', ')', 'LOOP'] :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
             elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper())
+                output.write(args[i].upper() + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
                 exit(-1)
+        i += 1
     
     # Sai de comentário de linha ao final dela
     if statestack[-1] == 'lc' :
