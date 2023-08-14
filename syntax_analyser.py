@@ -25,6 +25,7 @@ symbols = {'+'      : 'add_routine',
            'ELSE'   : 'ELSE',
            'THEN'   : 'THEN',
            'DO'     : 'DO',
+           'I'      : 'i',
            'LOOP'   : 'LOOP',}
 extensions = ['fth', 'fs', '4th', 'frt', 'forth']
 
