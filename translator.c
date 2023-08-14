@@ -7,12 +7,23 @@ int isNumber(char *text)
 {
     int j;
     j = strlen(text);
-    while(j--)
+    if (text[0] != '-')
     {
-        if(text[j] >= '0' && text[j] <= '9')
-            continue;
-
-        return 0;
+        while(j--)
+        {
+            if((text[j] >= '0' && text[j] <= '9'))
+                continue;
+            return 0;
+        }
+    }
+    else 
+    {
+        while((j--)-1)
+        {
+            if((text[j] >= '0' && text[j] <= '9'))
+                continue;
+            return 0;
+        }
     }
     return 1;
 }
