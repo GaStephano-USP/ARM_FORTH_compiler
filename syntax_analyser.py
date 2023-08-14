@@ -65,10 +65,8 @@ for line in source :
                     output.write(": " + args[i+1].upper() + '\n')
                     i += 1
             elif args[i] == '\\' :
-                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(\n')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
                 output.write('IF\n')
@@ -93,10 +91,8 @@ for line in source :
                 output.write(';\n')
                 statestack.pop()
             elif args[i] == '\\' :
-                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(\n')
                 statestack.append('c')
             elif args[i].upper() == 'IF' :
                 output.write('IF\n')
@@ -122,10 +118,8 @@ for line in source :
         # Estado: loop
         elif statestack[-1] == 'l' :
             if args[i] == '\\' :
-                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(\n')
                 statestack.append('c')
             elif args[i].upper() == 'LOOP' :
                 output.write('LOOP\n')
@@ -160,10 +154,8 @@ for line in source :
         # Estado: condicional
         elif statestack[-1] == 'i' :
             if args[i] == '\\' :
-                output.write('\\\n')
                 statestack.append('lc')
             elif args[i] == '(' :
-                output.write('(\n')
                 statestack.append('c')
             elif args[i].upper() == 'THEN' :
                 output.write('THEN\n')
