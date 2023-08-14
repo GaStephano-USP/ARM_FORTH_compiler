@@ -36,14 +36,17 @@ int main() {
         }
         if (isNumber(symbol))
             fprintf(saida, "\tmov r0, #%s\n\tpush{r0}\n", symbol); // push number in stack
-        //else if (symbol == "IF")
-        //        fprintf(saida, "\tpop {r0}\n\tbz L%d", num);
-        //else if (symbol == "ELSE");
-            //    fprintf(saida, "L%d:\n\t beq L%d\n", num, ++num);
-        //else if (symbol == "THEN")
-        //    fprintf(saida, "L%d:\n", num++);
-        else if (symbol[len - 1] == ';')
-            fprintf(saida, "\tmov pc, lr"); // function return
+        else if (symbol[0] == 'I' && symbol[1] == 'F' && symbol[2] == '\0')
+                fprintf(saida, "\tpop {r0}\n\tmov r1, #0\n\tbeq L%d\n", num); //start IF loop
+        else if (symbol[0] == 'E' && symbol[1] == 'L' && symbol[2] == 'S' && symbol[3] == 'E' && symbol[4] == '\0')
+            {
+                fprintf(saida, "L%d:\n\tpop {r0}\n\tmov r1, #0\n\tbeq L%d\n", num, num+1);
+                num++;
+            }
+        else if (symbol[0] == 'T' && symbol[1] == 'H' && symbol[2] == 'E' && symbol[3] == 'N' && symbol[4] == '\0')
+            fprintf(saida, "L%d:\n", num++);
+        else if (symbol[0] == ';')
+            fprintf(saida, "\tmov pc, lr\n"); // function return
         else if (symbol[0] == ':')
         {
             memmove(symbol, symbol+2, strlen(symbol));
