@@ -89,7 +89,7 @@ for line in source :
                     close()
                     exit(-1)
                 else :
-                    symbols[args[i+1].upper()] = args[i+1].upper()
+                    symbols[args[i+1]] = args[i+1].upper()
                     output.write(": " + args[i+1].upper() + '\n')
                     i += 1
             elif args[i] == '\\' :
