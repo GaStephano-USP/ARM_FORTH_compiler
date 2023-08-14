@@ -1,12 +1,12 @@
 @ /* funcoes iniciais q tenho q fazer: Add Sub Mul Swap Dup Drop Rot */
 
-add:
+add_routine:
     pop {ro, r1}
     add r0, r0, r1
     push {r0}
     mov pc, lr  
 
-sub:
+sub_routine:
     @ /* Tem que lembrar que forth é polonesa reversa, logo sub: segundo da fila - primeiro da fila */
     pop {r0, r1}
     sub r0, r1, r0 
@@ -26,15 +26,15 @@ neg:
     push {r0}
     mov pc, lr  
 
-mul:
+mul_routine:
     pop {r0, r1}
-    mul r0, r0, r1
+    mul r0, r1, r0
     push {r0}
     mov pc, lr  
 
 div:
     pop {r0, r1}
-    div r0, r1, r0
+    sdiv r0, r1, r0
     push {r0}
     mov pc, lr  
 
@@ -90,11 +90,12 @@ tuck:
     bgt greater
     mov r2, #0
     pop {r2}
-    b end
+    b end_greater_then
     greater:
         mov r2, #1
         pop {r2}
-    end:
+        b end_greater_then
+    end_greater_then:
         mov pc, lr  
 
 <:
@@ -103,11 +104,12 @@ tuck:
     blt less
     mov r2, #0
     pop {r2}
-    b end
+    b end_less_then
     less:
         mov r2, #1
         pop {r2}
-    end:
+        b end_less_then
+    end_less_then:
         mov pc, lr  
 
 =:
@@ -116,11 +118,12 @@ tuck:
     beq equal
     mov r2, #0
     pop {r2}
-    b end
+    b end_equal
     equal:
         mov r2, #1
         pop {r2}
-    end:
+        end_equal
+    end_equal:
         mov pc, lr  
 
 <>:
@@ -129,11 +132,12 @@ tuck:
     bne nequal
     mov r2, #0
     pop {r2}
-    b end
+    b end_nequal
     equal:
         mov r2, #1
         pop {r2}
-    end:
+        b end_nequal
+    end_nequal:
         mov pc, lr  
 
 @ /* Operacoes logicas com 0 */
@@ -144,11 +148,12 @@ tuck:
     beq equal
     mov r2, #0
     pop {r1}
-    b end
+    b end_equal_zero
     equal:
         mov r2, #1
         pop {r1}
-    end:
+        b end_equal_zero
+    end_equal_zero:
         mov pc, lr  
 
 0<:
@@ -157,11 +162,12 @@ tuck:
     blt less
     mov r2, #0
     pop {r2}
-    b end
+    b end_less_then_zero
         less:
         mov r2, #1
         pop {r2}
-    end:
+        b end_less_then_zero
+    end_less_then_zero:
         mov pc, lr  
 
 0>:
@@ -170,16 +176,17 @@ tuck:
     bgt greater
     mov r2, #0
     pop {r2}
-    b end
+    b end_greater_then_zero
         greater:
         mov r2, #1
         pop {r2}
-    end:
+        b end_greater_then_zero
+    end_greater_then_zero:
         mov pc, lr  
 
 @ /* Opoeracoes Logicas or, and, negate */
 
-or:
+or_routine:
     @ /* Checa se r0 ou r1 sao diferentes de 0, se for retorna 1, se nn retorna 0 */
     pop {r0, r1}
     cmp r0, #0
@@ -192,16 +199,16 @@ or:
     escreve1:
         mov r2, #1
         push {r2}
-        b end
+        b end_or
     zero:
         mov r2, #0
         push {r2}
-        b end
-    end:
+        b end_or
+    end_or:
         mov pc, lr
 
 
-and:
+and_routine:
     @ /* Checa se r0 e r1 sao maiores que 0, se for retorna 1, se nn retorna 0 */
     pop {r0, r1}
     cmp r0, #0
@@ -212,15 +219,15 @@ and:
     escreve 1:
         mov r2, #1
         push {r2}
-        b end
+        b end_and
     zero:
         mov r2, #0
         push {r2}
-        b end
-    end:
+        b end_and
+    end_and:
         mov pc, lr  
 
-negate:
+negate_routine:
     @ /* Escreve 0 na pilha se tinha algo diferente de 0, escreve 1 na pilha se tinha 0  */
     pop {r0}
     cmp r0, #0
@@ -230,11 +237,11 @@ negate:
     escreve0:
         mov r2, #0
         push {r2}
-        b end
+        b end_negative
     escreve1:
         mov r2, #1
         push {r2}
-        b end
-    end:
+        b end_negative
+    end_negative:
         mov pc, lr
 
