@@ -44,7 +44,7 @@ sourceWords = sourceFilename.rsplit('.', 1)
 if len(sourceWords) < 2 or not (sourceWords[1] in extensions) :
     print('ERRO: Nome inválido de arquivo de origem. Certifique-se de que ele possui uma extensão válida, como \".fth\".')
     exit(-1)
-outputFilename = sourceWords[0] + '.bck'
+outputFilename = 'target.bck'
 
 source = open(sourceFilename, 'r')
 output = open(outputFilename, 'w')
