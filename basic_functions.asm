@@ -22,7 +22,7 @@ dup:
 neg:
     pop {r0}
     mov r1, #0
-    sub, r0, r1, r0
+    sub r0, r1, r0
     push {r0}
     mov pc, lr  
 
@@ -112,14 +112,14 @@ less_then:
     end_less_then:
         mov pc, lr  
 
-equal_rotine:
+equal:
     pop {r0, r1}
     cmp r1, r0
-    beq equal
+    beq equal_routine
     mov r2, #0
     pop {r2}
-    b end_equal
-    equal:
+    b end_equal_routine
+    equal_routine:
         mov r2, #1
         pop {r2}
         b end_equal
@@ -145,11 +145,11 @@ n_equal:
 equal_zero:
     pop {r0}
     cmp r0, #0
-    beq equal
+    beq equal_zero_routine
     mov r2, #0
     pop {r1}
     b end_equal_zero
-    equal:
+    equal_zero_routine:
         mov r2, #1
         pop {r1}
         b end_equal_zero
@@ -193,7 +193,7 @@ or_routine:
     beq passo1
     b escreve1
     passo1:
-        cmp r1 #0
+        cmp r1, #0
         beq zero_or
         b escreve1
     escreve1:
