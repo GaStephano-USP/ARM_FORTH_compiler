@@ -20,8 +20,8 @@ int isNumber(char *text)
 int main() {
     FILE* entrada;
     FILE* saida;
-    entrada = fopen("target.bck", "r");
-    saida = fopen("target.s", "w");
+    entrada = fopen("../target.bck", "r");
+    saida = fopen("../target.s", "w");
     if (entrada == NULL) {
         printf("arquivo não encontrado\n");
         return -1;
@@ -36,7 +36,7 @@ int main() {
             symbol[len - 1] = '\0';
         }
         if (isNumber(symbol))
-            fprintf(saida, "\tmov r0, #%s\n\tpush{r0}\n", symbol); // push number in stack
+            fprintf(saida, "\tmov r0, #%s\n\tpush {r0}\n", symbol); // push number in stack
         else if (symbol[0] == 'I' && symbol[1] == 'F' && symbol[2] == '\0')
                 fprintf(saida, "\tpop {r0}\n\tmov r1, #0\n\tbeq C%d\n", num_c); //start IF loop
         else if (symbol[0] == 'E' && symbol[1] == 'L' && symbol[2] == 'S' && symbol[3] == 'E' && symbol[4] == '\0')
