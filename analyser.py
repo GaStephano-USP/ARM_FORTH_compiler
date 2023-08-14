@@ -232,4 +232,6 @@ if statestack[-1] == 'l':
     print('ERRO: Há um \'LOOP\' faltando.')
 elif statestack[-1] == 'i':
     print('ERRO: Há um \'THEN\' faltando.')
+
+print(f'Programa analisado com sucesso!\nSaída salva em {outputFilename}')
 close()
