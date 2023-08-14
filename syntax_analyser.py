@@ -1,6 +1,31 @@
-symbols = ['+', '-', '*', '/', '.', '=', '>', '<', '<>', '0=', '0>', '0<', 'OR', 'AND', 'NEGATE',
-           'DROP', 'SWAP', 'ROT', 'DUP', 'OVER', 'TUCK', 'PICK', 'ROLL',
-           'IF', 'ELSE', 'THEN', 'DO', 'LOOP']
+symbols = {'+' : 'add_routine',
+           '-' : 'sub_routine',
+           '*' : 'mul_routine',
+           '/' : '',
+           '.' : '',
+           '=' : 'equal',
+           '>' : 'greater_then',
+           '<' : 'less_then',
+           '<>' : 'n_equal',
+           '0=' : 'equal_zero',
+           '0>' : 'greater_then_zero',
+           '0<' : 'less_then_zero',
+           'OR' : 'or_routine',
+           'AND' : 'and_routine',
+           'NEGATE' : 'negate_routine',
+           'DROP' : 'drop',
+           'SWAP' : 'swap',
+           'ROT' : 'rot',
+           'DUP' : 'dup',
+           'OVER' : 'over',
+           'TUCK' : 'tuck',
+           'PICK' : 'pick',
+           'ROLL' : 'roll',
+           'IF' : 'IF',
+           'ELSE' : 'ELSE',
+           'THEN' : 'THEN',
+           'DO' : 'DO',
+           'LOOP' : 'LOOP',}
 extensions = ['fth', 'fs', '4th', 'frt', 'forth']
 
 from sys import argv # argumentos de linha de comando
@@ -56,7 +81,7 @@ for line in source :
                     print(f"ERRO: Nome inválido (linha {lineNum})")
                     close()
                     exit(-1)
-                elif args[i+1].upper() in symbols:
+                elif args[i+1].upper() in symbols.keys():
                     print(f"ERRO: Nome \"{args[i+1]}\" já tem definição (linha {lineNum})")
                     close()
                     exit(-1)
@@ -78,8 +103,10 @@ for line in source :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper() + '\n')
+            elif isSigned(args[i]) :
+                output.write(args[i] + '\n')
+            elif args[i].upper() in symbols.keys() :
+                output.write(symbols(args[i]) + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -108,8 +135,10 @@ for line in source :
                 print(f"ERRO: Nome não pode ser definido dentro da definição de outro (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper() + '\n')
+            elif isSigned(args[i]) :
+                output.write(args[i] + '\n')
+            elif args[i].upper() in symbols.keys() :
+                output.write(symbols(args[i]) + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -144,8 +173,10 @@ for line in source :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper() + '\n')
+            elif isSigned(args[i]) :
+                output.write(args[i] + '\n')
+            elif args[i].upper() in symbols.keys() :
+                output.write(symbols(args[i]) + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -180,8 +211,10 @@ for line in source :
                 print(f"ERRO: Termo \"{args[i]}\" inesperado (linha {lineNum})")
                 close()
                 exit(-1)
-            elif (args[i].upper() in symbols) or isSigned(args[i]) :
-                output.write(args[i].upper() + '\n')
+            elif isSigned(args[i]) :
+                output.write(args[i] + '\n')
+            elif args[i].upper() in symbols.keys() :
+                output.write(symbols(args[i]) + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
