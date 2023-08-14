@@ -84,7 +84,7 @@ tuck:
 
 @ /* Operacoes logicas */
 
->:
+greater_then:
     pop {r0, r1}
     cmp r1, r0
     bgt greater
@@ -98,7 +98,7 @@ tuck:
     end_greater_then:
         mov pc, lr  
 
-<:
+less_then:
     pop {r0, r1}
     cmp r1, r0
     blt less
@@ -112,7 +112,7 @@ tuck:
     end_less_then:
         mov pc, lr  
 
-=:
+equal:
     pop {r0, r1}
     cmp r1, r0
     beq equal
@@ -126,7 +126,7 @@ tuck:
     end_equal:
         mov pc, lr  
 
-<>:
+n_equal:
     pop {r0, r1}
     cmp r1, r0
     bne nequal
@@ -142,7 +142,7 @@ tuck:
 
 @ /* Operacoes logicas com 0 */
 
-0=:
+equal_zero:
     pop {r0}
     comp r0, #0
     beq equal
@@ -156,7 +156,7 @@ tuck:
     end_equal_zero:
         mov pc, lr  
 
-0<:
+less_then_zero:
     pop {r0}
     cmp r0, #0
     blt less
@@ -170,7 +170,7 @@ tuck:
     end_less_then_zero:
         mov pc, lr  
 
-0>:
+greater_then_zero:
     pop {r0}
     cmp r0, #0
     bgt greater
