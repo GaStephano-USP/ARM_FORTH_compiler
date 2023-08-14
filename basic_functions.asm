@@ -1,7 +1,7 @@
 @ /* funcoes iniciais q tenho q fazer: Add Sub Mul Swap Dup Drop Rot */
 
 add_routine:
-    pop {ro, r1}
+    pop {r0, r1}
     add r0, r0, r1
     push {r0}
     mov pc, lr  
@@ -66,7 +66,7 @@ over:
 pick:
     pop {r0}
     mov r1, #4
-    mul r0, r0, r1
+    mul r0, r1, r0
     add sp, sp, r0
     ldr r1, [sp]
     sub sp, sp, r0
@@ -112,7 +112,7 @@ less_then:
     end_less_then:
         mov pc, lr  
 
-equal:
+equal_rotine:
     pop {r0, r1}
     cmp r1, r0
     beq equal
@@ -122,7 +122,7 @@ equal:
     equal:
         mov r2, #1
         pop {r2}
-        end_equal
+        b end_equal
     end_equal:
         mov pc, lr  
 
@@ -133,7 +133,7 @@ n_equal:
     mov r2, #0
     pop {r2}
     b end_nequal
-    equal:
+    nequal:
         mov r2, #1
         pop {r2}
         b end_nequal
@@ -144,7 +144,7 @@ n_equal:
 
 equal_zero:
     pop {r0}
-    comp r0, #0
+    cmp r0, #0
     beq equal
     mov r2, #0
     pop {r1}
@@ -159,11 +159,11 @@ equal_zero:
 less_then_zero:
     pop {r0}
     cmp r0, #0
-    blt less
+    blt less_zero
     mov r2, #0
     pop {r2}
     b end_less_then_zero
-        less:
+        less_zero:
         mov r2, #1
         pop {r2}
         b end_less_then_zero
@@ -173,11 +173,11 @@ less_then_zero:
 greater_then_zero:
     pop {r0}
     cmp r0, #0
-    bgt greater
+    bgt greater_zero
     mov r2, #0
     pop {r2}
     b end_greater_then_zero
-        greater:
+        greater_zero:
         mov r2, #1
         pop {r2}
         b end_greater_then_zero
@@ -194,13 +194,13 @@ or_routine:
     b escreve1
     passo1:
         cmp r1 #0
-        beq zero
+        beq zero_or
         b escreve1
     escreve1:
         mov r2, #1
         push {r2}
         b end_or
-    zero:
+    zero_or:
         mov r2, #0
         push {r2}
         b end_or
@@ -212,15 +212,15 @@ and_routine:
     @ /* Checa se r0 e r1 sao maiores que 0, se for retorna 1, se nn retorna 0 */
     pop {r0, r1}
     cmp r0, #0
-    beq zero
+    beq zero_and
     cmp r1, #0
-    beq zero
-    b escreve1
-    escreve 1:
+    beq zero_and
+    b escreve1_and
+    escreve1_and:
         mov r2, #1
         push {r2}
         b end_and
-    zero:
+    zero_and:
         mov r2, #0
         push {r2}
         b end_and
@@ -231,14 +231,14 @@ negate_routine:
     @ /* Escreve 0 na pilha se tinha algo diferente de 0, escreve 1 na pilha se tinha 0  */
     pop {r0}
     cmp r0, #0
-    beq escreve1
+    beq escreve1_negate
     b escreve0
     b menor
     escreve0:
         mov r2, #0
         push {r2}
         b end_negative
-    escreve1:
+    escreve1_negate:
         mov r2, #1
         push {r2}
         b end_negative
