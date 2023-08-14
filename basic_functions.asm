@@ -56,6 +56,32 @@ drop:
     mov pc, lr  
     @ /* Movo stack pointer pra baixo */
 
+over:
+    pop {r0, r1}
+    push {r1}
+    push {r0}
+    push {r1}
+    mov pc, lr
+
+pick:
+    pop {r0}
+    mov r1, #4
+    mul r0, r0, r1
+    add sp, sp, r0
+    ldr r1, [sp]
+    sub sp, sp, r0
+    push {r1}
+    mov pc, lr
+
+tuck:
+    pop {r0}
+    pop {r1}
+    push {r0}
+    push {r1}
+    push {r0}
+    mov pc, lr
+
+
 @ /* Operacoes logicas */
 
 >:
@@ -84,7 +110,7 @@ drop:
     end:
         mov pc, lr  
 
-==:
+=:
     pop {r0, r1}
     cmp r1, r0
     beq equal
@@ -97,7 +123,7 @@ drop:
     end:
         mov pc, lr  
 
-!=:
+<>:
     pop {r0, r1}
     cmp r1, r0
     bne nequal
@@ -194,7 +220,7 @@ and:
     end:
         mov pc, lr  
 
-not:
+negate:
     @ /* Escreve 0 na pilha se tinha algo diferente de 0, escreve 1 na pilha se tinha 0  */
     pop {r0}
     cmp r0, #0
