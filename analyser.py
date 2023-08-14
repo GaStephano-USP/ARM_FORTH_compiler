@@ -89,7 +89,7 @@ for line in source :
                     close()
                     exit(-1)
                 else :
-                    symbols.append(args[i+1].upper())
+                    symbols[args[i+1].upper()] = args[i+1].upper()
                     output.write(": " + args[i+1].upper() + '\n')
                     i += 1
             elif args[i] == '\\' :
@@ -109,7 +109,7 @@ for line in source :
             elif isSigned(args[i]) :
                 output.write(args[i] + '\n')
             elif args[i].upper() in symbols.keys() :
-                output.write(symbols(args[i]) + '\n')
+                output.write(symbols[args[i]] + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -141,7 +141,7 @@ for line in source :
             elif isSigned(args[i]) :
                 output.write(args[i] + '\n')
             elif args[i].upper() in symbols.keys() :
-                output.write(symbols(args[i]) + '\n')
+                output.write(symbols[args[i]] + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -179,7 +179,7 @@ for line in source :
             elif isSigned(args[i]) :
                 output.write(args[i] + '\n')
             elif args[i].upper() in symbols.keys() :
-                output.write(symbols(args[i]) + '\n')
+                output.write(symbols[args[i]] + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
@@ -217,7 +217,7 @@ for line in source :
             elif isSigned(args[i]) :
                 output.write(args[i] + '\n')
             elif args[i].upper() in symbols.keys() :
-                output.write(symbols(args[i]) + '\n')
+                output.write(symbols[args[i]] + '\n')
             else:
                 print(f"ERRO: Termo \"{args[i]}\" desconhecido (linha {lineNum})")
                 close()
