@@ -60,13 +60,13 @@ int main() {
                 fprintf(saida, "C%d:\n", num_c);
                 num_c++;
             }
-        else if (symbol[0] == 'D' && symbol[1] == '0' && symbol[2] == '\0') //DO
-                fprintf(saida, "lógica do DO", num_c); //lógica do DO
-        else if (symbol[0] == 'L' && symbol[1] == 'O' && symbol[2] == 'O' && symbol[3] == 'P' && symbol[4] == '\0') //LOOP
-            {
-                fprintf(saida, "lógica do LOOP", num_l); //lógica do LOOP
-                num_l++;
-            }
+        //else if (symbol[0] == 'D' && symbol[1] == '0' && symbol[2] == '\0') //DO
+        //        fprintf(saida, "lógica do DO", num_c); //lógica do DO
+        //else if (symbol[0] == 'L' && symbol[1] == 'O' && symbol[2] == 'O' && symbol[3] == 'P' && symbol[4] == '\0') //LOOP
+        //    {
+        //        fprintf(saida, "lógica do LOOP", num_l); //lógica do LOOP
+        //        num_l++;
+        //    }
         else if (symbol[0] == ';')
             fprintf(saida, "\tmov pc, lr\n"); // function return
         else if (symbol[0] == ':') //cria label para função a seguir
@@ -75,7 +75,7 @@ int main() {
             fprintf(saida, "%s:\n", symbol);
         }
         else
-            fprintf(saida, "\tbl %s\n", symbol); // desvia para a label da função
+            fprintf(saida, "\tbl =%s\n", symbol); // desvia para a label da função
     };
     fclose(entrada);
     fclose(saida);
