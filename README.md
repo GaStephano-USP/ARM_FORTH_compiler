@@ -20,7 +20,7 @@ gcc -o <nome do executável> translator.c
 ```
 Depois executamos ele (o arquivo fonte deve estar fora da pasta e o arquivo alvo será gerado fora da pasta).
 ```
-./translator
+./<nome do executável>
 ```
 O arquivo target.s deve ser gerado fora da pasta.
 ### Linker e funções básicas
